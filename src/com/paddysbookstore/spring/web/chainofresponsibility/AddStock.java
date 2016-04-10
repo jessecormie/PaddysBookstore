@@ -16,7 +16,7 @@ public class AddStock implements Chain {
 	@Override
 	public void calculate(Book book, String request, int number) {
 		// TODO Auto-generated method stub
-		if (request == "add") {
+		if (request.equalsIgnoreCase("add")) {
 			book.setStock(book.getStock() + number);
 
 		} else {

@@ -18,7 +18,7 @@
 	<security:http use-expressions="true">
 		<security:intercept-url pattern="/admin"
 			access="hasRole('ROLE_ADMIN')" />
-		<security:intercept-url pattern="/stock"
+		<security:intercept-url pattern="/stock/**"
 			access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/createreview"
 			access="isAuthenticated()" />

@@ -45,7 +45,7 @@ public class BookController {
 		return "bookdetails";
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/stock/{title}")
+	@RequestMapping(value = "/stock/{title}")
 	public String changeStock(@PathVariable String title, Model model, @RequestParam("number") int number,
 			@RequestParam("sum") String sum) {
 		System.out.println("test " + title);
@@ -61,7 +61,7 @@ public class BookController {
 		bookService.saveOrUpdate(theBook);
 		model.addAttribute("book", book);
 
-		return "admin";
+		return "home";
 	}
 
 }
