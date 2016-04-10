@@ -33,6 +33,11 @@ public class UserDao {
 	public void saveOrUpdate(User user) {
 		session().saveOrUpdate(user);
 	}
+	
+	@Transactional
+	public void removeShoppingCart(ShoppingCart shoppingCart) {
+		session().delete(shoppingCart);
+	}
 
 
 	public boolean exists(String username) {

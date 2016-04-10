@@ -47,23 +47,27 @@ public class PurchaseHistoryController {
 		String currentDate = dateFormat.format(date);
 
 		String username = user.getUsername();
-		PurchaseHistory purchaseHistory = new PurchaseHistory(shoppingCart,currentDate, username);
-		
-		purchaseHistory.setDate(currentDate);
-		purchaseHistory.setShoppingCartHistory(shoppingCart);
+		PurchaseHistory purchaseHistory = new PurchaseHistory(shoppingCart, currentDate, username);
+
 		purchaseHistoryService.create(purchaseHistory);
-	
+
+		ShoppingCart cart = user.getUserShoppingCart();
+		cart = null;
+		user.setUserShoppingCart(cart);
+		// user.getUserShoppingCart().getLineItemShoppingCart().clear();
+		// user.getUserShoppingCart().setTotal(0);
+		userService.saveOrUpdate(user);
+
 		model.addAttribute("purchaseHistory", purchaseHistory);
 
 		return "home";
 	}
-	
+
 	@RequestMapping("/admin")
-	public String displayPurchaseHistory(Model model){
-		
-		
+	public String displayPurchaseHistory(Model model) {
+
 		List<PurchaseHistory> purchaseHistory = purchaseHistoryService.displayPurchaseHistory();
-//		purchaseHistory.get(0).getShoppingCartHistory().getLineItemShoppingCart().get(0).get
+		// purchaseHistory.get(0).getShoppingCartHistory().getLineItemShoppingCart().get(0).get
 		model.addAttribute("purchaseHistory", purchaseHistory);
 		return "admin";
 	}

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
+import com.paddysbookstore.spring.web.dao.ShoppingCart;
 import com.paddysbookstore.spring.web.dao.User;
 import com.paddysbookstore.spring.web.dao.UserDao;
 
@@ -39,5 +40,10 @@ public class UserService {
 	
 	public User getUser(String name){
 		return userDao.getUser(name);
+	}
+
+	public void removeShoppingCart(ShoppingCart shoppingCart) {
+		// TODO Auto-generated method stub
+		userDao.removeShoppingCart(shoppingCart);
 	}
 }
