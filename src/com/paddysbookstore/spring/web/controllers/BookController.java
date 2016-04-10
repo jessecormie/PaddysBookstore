@@ -46,20 +46,27 @@ public class BookController {
 	@RequestMapping(value = "/stock/{title}")
 	public String changeStock(@PathVariable String title, Model model, @RequestParam("number") int number,
 			@RequestParam("sum") String sum) {
-		
+
 		List<Book> book = bookService.getBookDetails(title);
 		Book theBook = book.get(0);
-		
+
 		Chain chainCalc1 = new AddStock();
 		Chain chainCalc2 = new RemoveStock();
-		
+
 		chainCalc1.setNextChain(chainCalc2);
-		
+
 		chainCalc1.calculate(theBook, sum, number);
 		bookService.saveOrUpdate(theBook);
 		model.addAttribute("book", book);
 
 		return "home";
+	}
+
+	@RequestMapping(value = "/search")
+	public String search(Model model, @RequestParam("search") String search, @RequestParam("type") String type) {
+		System.out.println("Search: " + search + " Type: " + type);
+		
+		return "book";
 	}
 
 }

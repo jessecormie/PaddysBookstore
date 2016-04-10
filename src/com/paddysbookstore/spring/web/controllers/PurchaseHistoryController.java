@@ -39,7 +39,7 @@ public class PurchaseHistoryController {
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-	
+
 	@Autowired
 	public void setBookService(BookService bookService) {
 		this.bookService = bookService;
@@ -53,22 +53,20 @@ public class PurchaseHistoryController {
 		ShoppingCart shoppingCart = user.getUserShoppingCart();
 		System.out.println("Shopping cart ID: " + shoppingCart.getId());
 
-		
-		for(LineItem lineItem: shoppingCart.getLineItemShoppingCart()){
+		for (LineItem lineItem : shoppingCart.getLineItemShoppingCart()) {
 			Book theBook = lineItem.getBook();
 			String sum = "subtract";
 			int number = lineItem.getQuantity();
-			
+
 			Chain chainCalc1 = new AddStock();
 			Chain chainCalc2 = new RemoveStock();
-			
+
 			chainCalc1.setNextChain(chainCalc2);
-			
+
 			chainCalc1.calculate(theBook, sum, number);
 			bookService.saveOrUpdate(theBook);
 		}
-		
-		
+
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
 		Date date = new Date();
 		System.out.println(dateFormat.format(date));
@@ -95,7 +93,7 @@ public class PurchaseHistoryController {
 	public String displayPurchaseHistory(Model model) {
 		List<Book> book = bookService.getBook();
 		model.addAttribute("book", book);
-		
+
 		List<PurchaseHistory> purchaseHistory = purchaseHistoryService.displayPurchaseHistory();
 		// purchaseHistory.get(0).getShoppingCartHistory().getLineItemShoppingCart().get(0).get
 		model.addAttribute("purchaseHistory", purchaseHistory);

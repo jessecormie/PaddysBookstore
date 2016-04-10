@@ -48,7 +48,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/shoppingcart"
 			access="isAuthenticated()" />
-
+			<security:intercept-url pattern="/search"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/" access="permitAll" />
 		<security:intercept-url pattern="/denied"
 			access="permitAll" />
