@@ -1,0 +1,144 @@
+@CHARSET "UTF-8";
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300);
+
+
+
+.jumbotron-flat {
+	background-color: solid #4DB8FFF;
+	height: 100%;
+	border: 1px solid #4DB8FF;
+	background: white;
+	width: 100%;
+	text-align: center;
+	overflow: auto;
+}
+body {
+    margin-top: 20px;
+}
+
+.paymentAmt {
+	font-size: 80px;
+}
+
+.centered {
+	text-align: center;
+}
+
+.title {
+	padding-top: 15px;
+}
+
+.center {
+	width: 150px;
+	margin: 40px auto;
+}
+
+span.stars, span.stars>* {
+	display: inline-block;
+	background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+	width: 80px;
+	height: 16px;
+}
+
+span.stars>* {
+	max-width: 80px;
+	background-position: 0 0;
+}
+
+input[type=text] {
+	width: 250px;
+}
+
+input[type=password] {
+	width: 250px;
+}
+
+textarea {
+	width: 250px;
+	height: 300px;
+}
+
+.label {
+	text-align: right;
+	vertical-align: top;
+}
+
+.control {
+	margin-left: 10px;
+}
+
+.error {
+	font-size: small;
+	color: red;
+	margin-left: 10px;
+}
+
+.valid {
+	font-size: small;
+	color: green;
+	margin-left: 10px;
+}
+
+table.forum {
+	padding: 10px;
+	border: 1px solid gray;
+}
+
+div.footer {
+	font-size: small;
+	color: gray;
+}
+
+div.content {
+	position: relative;
+	padding: 40px;
+}
+
+a.title {
+	color: white;
+	font-size: 35px;
+}
+
+.animated {
+	-webkit-transition: height 0.2s;
+	-moz-transition: height 0.2s;
+	transition: height 0.2s;
+}
+
+.stars {
+	margin: 20px 0;
+	font-size: 24px;
+	color: #d17581;
+}
+
+.rating {
+	overflow: hidden;
+	display: inline-block;
+	font-size: 0;
+	position: relative;
+}
+
+.rating-input {
+	float: right;
+	width: 16px;
+	height: 16px;
+	padding: 0;
+	margin: 0 0 0 -16px;
+	opacity: 0;
+}
+
+.rating:hover .rating-star:hover, .rating:hover .rating-star:hover ~
+	.rating-star, .rating-input:checked ~ .rating-star {
+	background-position: 0 0;
+}
+
+.rating-star, .rating:hover .rating-star {
+	position: relative;
+	float: right;
+	display: block;
+	width: 16px;
+	height: 16px;
+	background: url('http://kubyshkin.ru/samples/star-rating/star.png') 0
+		-16px;
+}
