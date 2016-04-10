@@ -14,15 +14,14 @@ public class AddStock implements Chain {
 	}
 
 	@Override
-	public void calculate(LineItem book, String request, int number) {
+	public void calculate(Book book, String request, int number) {
 		// TODO Auto-generated method stub
 		if (request == "add") {
-			System.out.print(book.getBook().getStock() + " + " + request.getNumber2() + " = "
-					+ (request.getNumber1() + request.getNumber2()));
+			book.setStock(book.getStock() + number);
 
 		} else {
 
-			nextInChain.calculate(request);
+			nextInChain.calculate(book, request, number);
 
 		}
 

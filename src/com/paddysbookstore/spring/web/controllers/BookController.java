@@ -8,7 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.paddysbookstore.spring.web.chainofresponsibility.AddStock;
+import com.paddysbookstore.spring.web.chainofresponsibility.Chain;
+import com.paddysbookstore.spring.web.chainofresponsibility.RemoveStock;
 import com.paddysbookstore.spring.web.dao.Book;
 import com.paddysbookstore.spring.web.service.BookService;
 import com.paddysbookstore.spring.web.service.ReviewService;
@@ -28,7 +32,7 @@ public class BookController {
 	public String showBook(Model model) { // HttpSession session
 		List<Book> book = bookService.getBook();
 		model.addAttribute("book", book);
-		
+
 		return "book";
 	}
 
@@ -40,5 +44,24 @@ public class BookController {
 
 		return "bookdetails";
 	}
-	
+
+	@RequestMapping(method = RequestMethod.GET, value = "/stock/{title}")
+	public String changeStock(@PathVariable String title, Model model, @RequestParam("number") int number,
+			@RequestParam("sum") String sum) {
+		System.out.println("test " + title);
+		List<Book> book = bookService.getBookDetails(title);
+		Book theBook = book.get(0);
+		
+		Chain chainCalc1 = new AddStock();
+		Chain chainCalc2 = new RemoveStock();
+		
+		chainCalc1.setNextChain(chainCalc2);
+		
+		chainCalc1.calculate(theBook, sum, number);
+		bookService.saveOrUpdate(theBook);
+		model.addAttribute("book", book);
+
+		return "admin";
+	}
+
 }

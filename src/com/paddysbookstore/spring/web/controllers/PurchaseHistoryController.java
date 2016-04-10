@@ -11,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.paddysbookstore.spring.web.dao.Book;
 import com.paddysbookstore.spring.web.dao.PurchaseHistory;
 import com.paddysbookstore.spring.web.dao.ShoppingCart;
 import com.paddysbookstore.spring.web.dao.User;
+import com.paddysbookstore.spring.web.service.BookService;
 import com.paddysbookstore.spring.web.service.PurchaseHistoryService;
 import com.paddysbookstore.spring.web.service.UserService;
 
@@ -22,6 +24,7 @@ public class PurchaseHistoryController {
 
 	private PurchaseHistoryService purchaseHistoryService;
 	private UserService userService;
+	private BookService bookService;
 
 	@Autowired
 	public void setPurchaseHistoryService(PurchaseHistoryService purchaseHistoryService) {
@@ -31,6 +34,11 @@ public class PurchaseHistoryController {
 	@Autowired
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+	
+	@Autowired
+	public void setBookService(BookService bookService) {
+		this.bookService = bookService;
 	}
 
 	@RequestMapping("/purchaseHistory")
@@ -65,7 +73,9 @@ public class PurchaseHistoryController {
 
 	@RequestMapping("/admin")
 	public String displayPurchaseHistory(Model model) {
-
+		List<Book> book = bookService.getBook();
+		model.addAttribute("book", book);
+		
 		List<PurchaseHistory> purchaseHistory = purchaseHistoryService.displayPurchaseHistory();
 		// purchaseHistory.get(0).getShoppingCartHistory().getLineItemShoppingCart().get(0).get
 		model.addAttribute("purchaseHistory", purchaseHistory);

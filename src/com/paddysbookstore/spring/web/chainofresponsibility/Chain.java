@@ -8,7 +8,5 @@ public interface Chain {
 	public void setNextChain(Chain nextChain);
 
 	public void calculate(Book book, String request, int number);
-
-
 	
 }

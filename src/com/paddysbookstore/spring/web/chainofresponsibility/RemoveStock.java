@@ -17,7 +17,7 @@ public class RemoveStock implements Chain {
 	public void calculate(Book book, String request, int number) {
 		// TODO Auto-generated method stub
 		if (request == "sub") {
-
+			
 			book.setStock(book.getStock() - number);
 
 		} else {
