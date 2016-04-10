@@ -11,7 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.paddysbookstore.spring.web.chainofresponsibility.AddStock;
+import com.paddysbookstore.spring.web.chainofresponsibility.Chain;
+import com.paddysbookstore.spring.web.chainofresponsibility.RemoveStock;
 import com.paddysbookstore.spring.web.dao.Book;
+import com.paddysbookstore.spring.web.dao.LineItem;
 import com.paddysbookstore.spring.web.dao.PurchaseHistory;
 import com.paddysbookstore.spring.web.dao.ShoppingCart;
 import com.paddysbookstore.spring.web.dao.User;
@@ -49,6 +53,22 @@ public class PurchaseHistoryController {
 		ShoppingCart shoppingCart = user.getUserShoppingCart();
 		System.out.println("Shopping cart ID: " + shoppingCart.getId());
 
+		
+		for(LineItem lineItem: shoppingCart.getLineItemShoppingCart()){
+			Book theBook = lineItem.getBook();
+			String sum = "subtract";
+			int number = lineItem.getQuantity();
+			
+			Chain chainCalc1 = new AddStock();
+			Chain chainCalc2 = new RemoveStock();
+			
+			chainCalc1.setNextChain(chainCalc2);
+			
+			chainCalc1.calculate(theBook, sum, number);
+			bookService.saveOrUpdate(theBook);
+		}
+		
+		
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
 		Date date = new Date();
 		System.out.println(dateFormat.format(date));

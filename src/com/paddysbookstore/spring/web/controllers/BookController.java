@@ -15,12 +15,10 @@ import com.paddysbookstore.spring.web.chainofresponsibility.Chain;
 import com.paddysbookstore.spring.web.chainofresponsibility.RemoveStock;
 import com.paddysbookstore.spring.web.dao.Book;
 import com.paddysbookstore.spring.web.service.BookService;
-import com.paddysbookstore.spring.web.service.ReviewService;
 
 @Controller
 public class BookController {
 
-	private ReviewService reviewService;
 	private BookService bookService;
 
 	@Autowired
@@ -48,7 +46,7 @@ public class BookController {
 	@RequestMapping(value = "/stock/{title}")
 	public String changeStock(@PathVariable String title, Model model, @RequestParam("number") int number,
 			@RequestParam("sum") String sum) {
-		System.out.println("test " + title);
+		
 		List<Book> book = bookService.getBookDetails(title);
 		Book theBook = book.get(0);
 		

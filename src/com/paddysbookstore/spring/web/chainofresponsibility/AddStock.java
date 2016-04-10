@@ -1,7 +1,6 @@
 package com.paddysbookstore.spring.web.chainofresponsibility;
 
 import com.paddysbookstore.spring.web.dao.Book;
-import com.paddysbookstore.spring.web.dao.LineItem;
 
 public class AddStock implements Chain {
 
@@ -16,6 +15,7 @@ public class AddStock implements Chain {
 	@Override
 	public void calculate(Book book, String request, int number) {
 		// TODO Auto-generated method stub
+		
 		if (request.equalsIgnoreCase("add")) {
 			book.setStock(book.getStock() + number);
 
