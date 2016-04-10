@@ -1,5 +1,7 @@
 package com.paddysbookstore.spring.web.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +19,11 @@ private PurchaseHistoryDao purchaseHistoryDao;
 	}
 
 	public void create(PurchaseHistory purchaseHitory) {
-		// TODO Auto-generated method stub
 		purchaseHistoryDao.create(purchaseHitory);
+	}
+
+	public List<PurchaseHistory> displayPurchaseHistory() {
+		return purchaseHistoryDao.displayPurchaseHistory();
 	}
 }
 

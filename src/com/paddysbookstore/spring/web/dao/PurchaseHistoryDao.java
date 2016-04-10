@@ -1,5 +1,7 @@
 package com.paddysbookstore.spring.web.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +24,9 @@ public class PurchaseHistoryDao {
 	public void create(PurchaseHistory purchaseHistory) {
 		session().saveOrUpdate(purchaseHistory);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<PurchaseHistory> displayPurchaseHistory(){
+		return session().createQuery("from PurchaseHistory").list();
+	}
 }
-

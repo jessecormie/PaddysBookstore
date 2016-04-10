@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,15 +46,25 @@ public class PurchaseHistoryController {
 		System.out.println(dateFormat.format(date));
 		String currentDate = dateFormat.format(date);
 
-		PurchaseHistory purchaseHistory = new PurchaseHistory(shoppingCart,currentDate);
+		String username = user.getUsername();
+		PurchaseHistory purchaseHistory = new PurchaseHistory(shoppingCart,currentDate, username);
 		
 		purchaseHistory.setDate(currentDate);
 		purchaseHistory.setShoppingCartHistory(shoppingCart);
 		purchaseHistoryService.create(purchaseHistory);
-
-		
+	
 		model.addAttribute("purchaseHistory", purchaseHistory);
 
 		return "home";
+	}
+	
+	@RequestMapping("/admin")
+	public String displayPurchaseHistory(Model model){
+		
+		
+		List<PurchaseHistory> purchaseHistory = purchaseHistoryService.displayPurchaseHistory();
+//		purchaseHistory.get(0).getShoppingCartHistory().getLineItemShoppingCart().get(0).get
+		model.addAttribute("purchaseHistory", purchaseHistory);
+		return "admin";
 	}
 }

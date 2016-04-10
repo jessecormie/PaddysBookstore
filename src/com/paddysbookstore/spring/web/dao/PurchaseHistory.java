@@ -20,14 +20,27 @@ public class PurchaseHistory {
 
 	private String date;
 	
+	private String username;
+	
 	public PurchaseHistory() {
 		super();
 	}
 
-	public PurchaseHistory(ShoppingCart shoppingCartHistory, String date) {
+	public PurchaseHistory(ShoppingCart shoppingCartHistory, String date, String username) {
 		super();
 		this.shoppingCartHistory = shoppingCartHistory;
 		this.date = date;
+		this.username = username;
+	}
+	
+	
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public int getId() {
