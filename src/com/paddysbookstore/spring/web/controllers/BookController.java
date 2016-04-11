@@ -1,5 +1,6 @@
 package com.paddysbookstore.spring.web.controllers;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import com.paddysbookstore.spring.web.chainofresponsibility.Chain;
 import com.paddysbookstore.spring.web.chainofresponsibility.RemoveStock;
 import com.paddysbookstore.spring.web.dao.Book;
 import com.paddysbookstore.spring.web.iterator.BookIterator;
+import com.paddysbookstore.spring.web.observer.PriceGrabber;
 import com.paddysbookstore.spring.web.service.BookListService;
 import com.paddysbookstore.spring.web.service.BookService;
 import com.paddysbookstore.spring.web.service.TypeAuthorService;
@@ -23,16 +25,23 @@ import com.paddysbookstore.spring.web.service.TypeCategoryService;
 import com.paddysbookstore.spring.web.service.TypeTitleService;
 import com.paddysbookstore.spring.web.strategy.Situation;
 
+
 @Controller
 public class BookController {
 	
-	BookIterator bookIterator;
+	private BookIterator bookIterator;
 	
 	private BookService bookService;
 	private BookListService bookListService;
 	private TypeTitleService typeTitleService;
 	private TypeCategoryService typeCategoryService;
 	private TypeAuthorService typeAuthorService;
+	
+	
+	@Autowired
+	public void setBookIterator(BookIterator bookIterator) {
+		this.bookIterator = bookIterator;
+	}
 
 	@Autowired
 	public void setTypeTitleService(TypeTitleService typeTitleService) {
@@ -62,13 +71,14 @@ public class BookController {
 	public String showBook(Model model) { // HttpSession session
 //		List<Book> book = bookService.getBook();
 //		model.addAttribute("book", book);
+		List<Book>bookList = new ArrayList<Book>();
 
 		Iterator book = bookIterator.createIterator();
 		while(book.hasNext()){
 			Book theBook = (Book) book.next();
-			model.addAttribute("book", theBook);
+			bookList.add(theBook);
 		}
-		
+		model.addAttribute("book", bookList);
 		return "book";
 	}
 
@@ -76,6 +86,13 @@ public class BookController {
 	public String showBookDetails(@PathVariable String title, Model model) {
 		System.out.println("test " + title);
 		List<Book> book = bookService.getBookDetails(title);
+		
+		PriceGrabber priceGrabber = new PriceGrabber();
+		if(book.get(0).getCategory().equals("Fantasy")){
+			priceGrabber.register(new Book(book.get(0).getPrice()));		
+		}
+		priceGrabber.setBook(book.get(0));
+		
 		model.addAttribute("book", book);
 
 		return "bookdetails";

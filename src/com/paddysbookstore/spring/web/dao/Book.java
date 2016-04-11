@@ -9,8 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.paddysbookstore.spring.web.observer.Observer;
+import com.paddysbookstore.spring.web.observer.Subject;
+
 @Entity
-public class Book {
+public class Book implements Observer{
 
 	@Id
 	@GeneratedValue
@@ -24,6 +27,10 @@ public class Book {
 	
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<Review> userReviews;
+	
+	public Book(double price) {
+		this.price = price;
+	}
 
 	public Book() {
 		
@@ -112,12 +119,16 @@ public class Book {
 		this.image = image;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", price=" + price + ", category="
 				+ category + ", image=" + image + ", stock=" + stock + ", userReviews=" + userReviews + "]";
+	}
+
+	@Override
+	public void update(Book book) {
+		book.setPrice(this.price*0.5);
+		
 	}
 	
 	

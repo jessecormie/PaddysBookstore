@@ -44,6 +44,7 @@
 					<value>com.paddysbookstore.spring.web.iterator</value>
 					<value>com.paddysbookstore.spring.web.chainofresponsibility</value>
 					<value>com.paddysbookstore.spring.web.strategy</value>
+					<value>com.paddysbookstore.spring.web.observer</value>
 				</list>
 			</property>
 		</bean>

@@ -29,7 +29,6 @@ public class BookListService implements BookIterator {
 	@Override
 	public Iterator createIterator() {
 		System.out.println("Here!");
-		// TODO Auto-generated method stub
 		getBook();
 		return allBooks.iterator();
 	}
