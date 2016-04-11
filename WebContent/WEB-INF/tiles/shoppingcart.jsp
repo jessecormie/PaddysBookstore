@@ -27,7 +27,7 @@
 			</c:forEach>
 			<tr>
 				<td></td>
-				<th>Total:</th>
+				<th>Total After Sale:</th>
 				<td><c:out value="${totalPrice}"></c:out></td>
 			</tr>
 		</tbody>

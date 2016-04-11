@@ -53,15 +53,16 @@
 			<td>
 
 				<form accept-charset="UTF-8"
-					action="${pageContext.request.contextPath}/stock/${book.title}" method="post">
+					action="${pageContext.request.contextPath}/stock/${book.title}"
+					method="post">
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="textinput">Number</label>
 						<div class="col-md-4">
 							<input class="form-control input-md" name="number" type="number" />
 							<label for="add">Add</label> <input type="radio" name="sum"
 								id="sum" value="add" checked="checked"><br> <label
-								for="subtract">Subtract</label> <input type="radio"
-								name="sum" id="sum" value="subtract"> <label
+								for="subtract">Subtract</label> <input type="radio" name="sum"
+								id="sum" value="subtract"> <label
 								class="col-md-4 control-label" for="singlebutton"></label>
 							<button id="submite" name="singlebutton" class="btn btn-primary"
 								type="submit">Enter</button>
@@ -69,6 +70,26 @@
 					</div>
 				</form>
 			</td>
+
 		</tr>
 	</table>
 </c:forEach>
+<H3>Set Sale by Category</H3>
+
+<form accept-charset="UTF-8" action="${pageContext.request.contextPath}/setSale" method="post">
+
+	<div class="form-group">
+		<div class="col-md-4">
+			<label for="add">Fantasy</label> <input type="radio" name="category"
+				id="category" value="Fantasy" checked="checked"> <br> <label
+				for="subtract">Crime</label> <input type="radio" name="category"
+				id="category" value="Crime"> <br> <label for="subtract">Fiction</label>
+			<input type="radio" name="category" id="category" value="Fiction">
+			<br>
+			<!-- <label class="col-md-4" for="singlebutton"></label> -->
+			<button id="submite" name="singlebutton" class="btn btn-primary"
+				type="submit">Enter</button>
+		</div>
+	</div>
+
+</form>

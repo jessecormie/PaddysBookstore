@@ -10,10 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.paddysbookstore.spring.web.observer.Observer;
-import com.paddysbookstore.spring.web.observer.Subject;
 
 @Entity
-public class Book implements Observer{
+public class Book implements Observer {
 
 	@Id
 	@GeneratedValue
@@ -24,20 +23,21 @@ public class Book implements Observer{
 	private String category;
 	private String image;
 	private int stock;
+	private boolean sale;
 	
-	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Review> userReviews;
-	
+
 	public Book(double price) {
 		this.price = price;
 	}
 
 	public Book() {
-		
+
 	}
 
 	public Book(int id, String title, String author, double price, String category, String image, int stock,
-			List<Review> userReviews) {
+			List<Review> userReviews, boolean sale) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -47,21 +47,24 @@ public class Book implements Observer{
 		this.image = image;
 		this.stock = stock;
 		this.userReviews = userReviews;
+		this.sale = sale; 
 	}
 
+	public boolean isSale() {
+		return sale;
+	}
 
+	public void setSale(boolean sale) {
+		this.sale = sale;
+	}
 
 	public List<Review> getUserReviews() {
 		return userReviews;
 	}
 
-
-
 	public void setUserReviews(List<Review> userReviews) {
 		this.userReviews = userReviews;
 	}
-
-
 
 	public int getStock() {
 		return stock;
@@ -127,9 +130,8 @@ public class Book implements Observer{
 
 	@Override
 	public void update(Book book) {
-		book.setPrice(this.price*0.5);
-		
+		book.setPrice(this.price * 0.5);
+
 	}
-	
-	
+
 }

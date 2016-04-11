@@ -15,6 +15,7 @@ import com.paddysbookstore.spring.web.dao.Book;
 import com.paddysbookstore.spring.web.dao.LineItem;
 import com.paddysbookstore.spring.web.dao.ShoppingCart;
 import com.paddysbookstore.spring.web.dao.User;
+import com.paddysbookstore.spring.web.observer.PriceGrabber;
 import com.paddysbookstore.spring.web.service.BookService;
 import com.paddysbookstore.spring.web.service.LineItemService;
 import com.paddysbookstore.spring.web.service.UserService;
@@ -57,6 +58,12 @@ public class LineItemController {
 
 		// Get the list of books with that title
 		List<Book> book = bookService.getBookDetails(title);
+		
+		PriceGrabber priceGrabber = new PriceGrabber();
+		if(book.get(0).getCategory().equals("Fantasy")){
+			priceGrabber.register(new Book(book.get(0).getPrice()));		
+		}
+		priceGrabber.setBook(book.get(0));
 		// Get user that is signed in
 		User user = userService.getUser(principal.getName());
 

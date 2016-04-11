@@ -68,9 +68,7 @@ public class BookController {
 	}
 
 	@RequestMapping("/book")
-	public String showBook(Model model) { // HttpSession session
-//		List<Book> book = bookService.getBook();
-//		model.addAttribute("book", book);
+	public String showBook(Model model) { 
 		List<Book>bookList = new ArrayList<Book>();
 
 		Iterator book = bookIterator.createIterator();
@@ -84,11 +82,11 @@ public class BookController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/book/{title}")
 	public String showBookDetails(@PathVariable String title, Model model) {
-		System.out.println("test " + title);
+		
 		List<Book> book = bookService.getBookDetails(title);
 		
 		PriceGrabber priceGrabber = new PriceGrabber();
-		if(book.get(0).getCategory().equals("Fantasy")){
+		if(book.get(0).isSale()){
 			priceGrabber.register(new Book(book.get(0).getPrice()));		
 		}
 		priceGrabber.setBook(book.get(0));
@@ -116,6 +114,23 @@ public class BookController {
 
 		return "home";
 	}
+	
+	
+	@RequestMapping(value="/setSale")
+	public String setSale(Model model, @RequestParam("category") String category){
+		
+		Iterator book = bookIterator.createIterator();
+		while(book.hasNext()){
+			Book theBook = (Book) book.next();
+			if(theBook.getCategory().equalsIgnoreCase("crime")){
+				theBook.setSale(true);
+				bookService.saveOrUpdate(theBook);
+			}
+		}
+		return "book";
+		
+	}
+	
 
 	@RequestMapping(value = "/search")
 	public String search(Model model, @RequestParam("search") String search, @RequestParam("type") String type) {
@@ -137,6 +152,11 @@ public class BookController {
 		}
 
 		return "book";
+	}
+	
+	public List<Book> iterateBooks(){
+		return null;
+		
 	}
 
 }
