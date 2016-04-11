@@ -13,8 +13,7 @@ import com.paddysbookstore.spring.web.iterator.BookIterator;
 @Service("bookListService")
 public class BookListService implements BookIterator {
 
-	private BookDao bookDao;
-	
+	private BookDao bookDao;	
 	List<Book> allBooks;
 
 	@Autowired
@@ -31,5 +30,4 @@ public class BookListService implements BookIterator {
 		getBook();
 		return allBooks.iterator();
 	}
-
 }

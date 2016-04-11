@@ -62,7 +62,6 @@ public class BookController {
 	@RequestMapping("/book")
 	public String showBook(Model model) {
 		List<Book> bookList = new ArrayList<Book>();
-
 		Iterator book = bookIterator.createIterator();
 		while (book.hasNext()) {
 			Book theBook = (Book) book.next();

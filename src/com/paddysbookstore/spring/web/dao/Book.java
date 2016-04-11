@@ -131,7 +131,6 @@ public class Book implements Observer {
 	@Override
 	public void update(Book book) {
 		book.setPrice(this.price * 0.5);
-
 	}
 
 }
