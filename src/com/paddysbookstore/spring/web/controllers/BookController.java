@@ -18,26 +18,22 @@ import com.paddysbookstore.spring.web.chainofresponsibility.RemoveStock;
 import com.paddysbookstore.spring.web.dao.Book;
 import com.paddysbookstore.spring.web.iterator.BookIterator;
 import com.paddysbookstore.spring.web.observer.PriceGrabber;
-import com.paddysbookstore.spring.web.service.BookListService;
 import com.paddysbookstore.spring.web.service.BookService;
 import com.paddysbookstore.spring.web.service.TypeAuthorService;
 import com.paddysbookstore.spring.web.service.TypeCategoryService;
 import com.paddysbookstore.spring.web.service.TypeTitleService;
 import com.paddysbookstore.spring.web.strategy.Situation;
 
-
 @Controller
 public class BookController {
-	
+
 	private BookIterator bookIterator;
-	
+
 	private BookService bookService;
-	private BookListService bookListService;
 	private TypeTitleService typeTitleService;
 	private TypeCategoryService typeCategoryService;
 	private TypeAuthorService typeAuthorService;
-	
-	
+
 	@Autowired
 	public void setBookIterator(BookIterator bookIterator) {
 		this.bookIterator = bookIterator;
@@ -62,17 +58,13 @@ public class BookController {
 	public void setBookService(BookService bookService) {
 		this.bookService = bookService;
 	}
-	@Autowired
-	public void setBookListService(BookListService bookListService) {
-		this.bookListService = bookListService;
-	}
 
 	@RequestMapping("/book")
-	public String showBook(Model model) { 
-		List<Book>bookList = new ArrayList<Book>();
+	public String showBook(Model model) {
+		List<Book> bookList = new ArrayList<Book>();
 
 		Iterator book = bookIterator.createIterator();
-		while(book.hasNext()){
+		while (book.hasNext()) {
 			Book theBook = (Book) book.next();
 			bookList.add(theBook);
 		}
@@ -82,15 +74,15 @@ public class BookController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/book/{title}")
 	public String showBookDetails(@PathVariable String title, Model model) {
-		
+
 		List<Book> book = bookService.getBookDetails(title);
-		
+
 		PriceGrabber priceGrabber = new PriceGrabber();
-		if(book.get(0).isSale()){
-			priceGrabber.register(new Book(book.get(0).getPrice()));		
+		if (book.get(0).isSale()) {
+			priceGrabber.register(new Book(book.get(0).getPrice()));
 		}
 		priceGrabber.setBook(book.get(0));
-		
+
 		model.addAttribute("book", book);
 
 		return "bookdetails";
@@ -114,27 +106,23 @@ public class BookController {
 
 		return "home";
 	}
-	
-	
-	@RequestMapping(value="/setSale")
-	public String setSale(Model model, @RequestParam("category") String category){
-		
+
+	@RequestMapping(value = "/setSale")
+	public String setSale(Model model, @RequestParam("category") String category) {
+
 		Iterator book = bookIterator.createIterator();
-		while(book.hasNext()){
+		while (book.hasNext()) {
 			Book theBook = (Book) book.next();
-			if(theBook.getCategory().equalsIgnoreCase("crime")){
+			if (theBook.getCategory().equalsIgnoreCase(category)) {
 				theBook.setSale(true);
 				bookService.saveOrUpdate(theBook);
 			}
 		}
-		return "book";
-		
+		return "home";
 	}
-	
 
 	@RequestMapping(value = "/search")
 	public String search(Model model, @RequestParam("search") String search, @RequestParam("type") String type) {
-		System.out.println("Search: " + search + " Type: " + type);
 
 		Situation s1 = new Situation(typeCategoryService);
 		Situation s2 = new Situation(typeTitleService);
@@ -153,10 +141,10 @@ public class BookController {
 
 		return "book";
 	}
-	
-	public List<Book> iterateBooks(){
+
+	public List<Book> iterateBooks() {
 		return null;
-		
+
 	}
 
 }

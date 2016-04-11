@@ -4,9 +4,6 @@
    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap-3.3.6-dist/css/bootstrap.min.css">
 
-
-<p><a href= "${pageContext.request.contextPath}/review">Show all reviews</a></p>
-<p><a href= "${pageContext.request.contextPath}/createreview">Add a new Review</a></p>
 <p><a href= "${pageContext.request.contextPath}/book">Show all books</a></p>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">

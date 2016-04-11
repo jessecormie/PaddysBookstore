@@ -60,7 +60,7 @@ public class LineItemController {
 		List<Book> book = bookService.getBookDetails(title);
 		
 		PriceGrabber priceGrabber = new PriceGrabber();
-		if(book.get(0).getCategory().equals("Fantasy")){
+		if(book.get(0).isSale()){
 			priceGrabber.register(new Book(book.get(0).getPrice()));		
 		}
 		priceGrabber.setBook(book.get(0));
