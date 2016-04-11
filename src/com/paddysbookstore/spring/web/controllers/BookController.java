@@ -32,12 +32,12 @@ public class BookController {
 	public void setTypeTitleService(TypeTitleService typeTitleService) {
 		this.typeTitleService = typeTitleService;
 	}
-	
+
 	@Autowired
 	public void setTypeAuthorService(TypeAuthorService typeAuthorService) {
 		this.typeAuthorService = typeAuthorService;
 	}
-	
+
 	@Autowired
 	public void setTypeCategoryService(TypeCategoryService typeCategoryService) {
 		this.typeCategoryService = typeCategoryService;
@@ -94,14 +94,13 @@ public class BookController {
 
 		if (type.equalsIgnoreCase("category")) {
 			List<Book> list = s1.searchBar(search);
-			System.out.println("Categroy: " + list.get(0).getTitle());
+			model.addAttribute("book", list);
 		} else if (type.equalsIgnoreCase("title")) {
 			List<Book> list = s2.searchBar(search);
-			System.out.println("Title: "+list.get(0).getTitle());
-			
+			model.addAttribute("book", list);
 		} else if (type.equalsIgnoreCase("author")) {
 			List<Book> list = s3.searchBar(search);
-			System.out.println("Author"+list.get(0).getTitle());
+			model.addAttribute("book", list);
 		}
 
 		return "book";
