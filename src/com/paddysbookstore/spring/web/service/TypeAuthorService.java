@@ -7,27 +7,24 @@ import org.springframework.stereotype.Service;
 
 import com.paddysbookstore.spring.web.dao.Book;
 import com.paddysbookstore.spring.web.dao.BookDao;
+import com.paddysbookstore.spring.web.strategy.Strategy;
 
-@Service("bookService")
-public class BookService {
+@Service("typeAuthorService")
+public class TypeAuthorService implements Strategy{
 
 	private BookDao bookDao;
-
+	
 	@Autowired
 	public void setBookDao(BookDao bookDao) {
 		this.bookDao = bookDao;
 	}
-
-	public List<Book> getBook() {
-		return bookDao.getBook();
-	}
 	
-	public List<Book> getBookDetails(String title){
-		return bookDao.getBookDetails(title);
-	}
-
-	public void saveOrUpdate(Book book) {
-		bookDao.saveOrUpdate(book);
+	@Override
+	public List<Book> searchBar(String search) {
+		return bookDao.getBookByAuthor(search);
+		
+		
+		
 	}
 
 }

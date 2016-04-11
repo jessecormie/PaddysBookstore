@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.paddysbookstore.spring.web.dao.Book;
 import com.paddysbookstore.spring.web.dao.BookDao;
+import com.paddysbookstore.spring.web.strategy.Strategy;
 
-@Service("bookService")
-public class BookService {
+@Service("typeTitleService")
+public class TypeTitleService implements Strategy{
 
 	private BookDao bookDao;
 
@@ -18,16 +19,12 @@ public class BookService {
 		this.bookDao = bookDao;
 	}
 
-	public List<Book> getBook() {
-		return bookDao.getBook();
-	}
-	
-	public List<Book> getBookDetails(String title){
-		return bookDao.getBookDetails(title);
-	}
 
-	public void saveOrUpdate(Book book) {
-		bookDao.saveOrUpdate(book);
+	public List<Book> searchBar(String search) {
+		
+		System.out.println("Search: " + search);
+		return bookDao.getBookDetails(search);
+		
 	}
 
 }

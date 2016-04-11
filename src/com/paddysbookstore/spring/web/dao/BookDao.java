@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,8 +35,27 @@ public class BookDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<Book> getBookDetails(String title) {
+		System.out.println("test  "+title);
 		Criteria crit = session().createCriteria(Book.class);
-		crit.add(Restrictions.eq("title", title));
+		crit.add(Restrictions.like("title", title,MatchMode.ANYWHERE));
+		crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		return crit.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Book> getBookByCategory(String category) {
+		System.out.println("test  "+category);
+		Criteria crit = session().createCriteria(Book.class);
+		crit.add(Restrictions.like("category", category,MatchMode.ANYWHERE));
+		crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		return crit.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Book> getBookByAuthor(String author) {
+		System.out.println("test  "+author);
+		Criteria crit = session().createCriteria(Book.class);
+		crit.add(Restrictions.like("author", author,MatchMode.ANYWHERE));
 		crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return crit.list();
 	}

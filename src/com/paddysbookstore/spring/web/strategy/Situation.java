@@ -1,5 +1,8 @@
 package com.paddysbookstore.spring.web.strategy;
 
+import java.util.List;
+
+import com.paddysbookstore.spring.web.dao.Book;
 
 public class Situation {
 	private Strategy strategy;
@@ -8,7 +11,7 @@ public class Situation {
 		this.strategy = strategy;
 	}
 	
-	public void searchBar(String search){
-		this.strategy.searchBar(search);
+	public List<Book> searchBar(String search){
+		return this.strategy.searchBar(search);
 	}
 }
