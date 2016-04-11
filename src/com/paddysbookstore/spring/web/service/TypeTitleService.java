@@ -19,12 +19,7 @@ public class TypeTitleService implements Strategy{
 		this.bookDao = bookDao;
 	}
 
-
 	public List<Book> searchBar(String search) {
-		
-		System.out.println("Search: " + search);
-		return bookDao.getBookDetails(search);
-		
+		return bookDao.getBookDetails(search);		
 	}
-
 }

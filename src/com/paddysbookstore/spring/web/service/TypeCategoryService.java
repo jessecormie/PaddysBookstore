@@ -23,5 +23,4 @@ public class TypeCategoryService implements Strategy{
 	public List<Book> searchBar(String search) {		
 		return bookDao.getBookByCategory(search);
 	}
-
 }

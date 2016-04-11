@@ -8,14 +8,12 @@ public class PriceGrabber implements Subject{
 
 	private ArrayList<Observer> observers;
 	private Book book;
-	
-		
+			
 	public PriceGrabber() {
 		this.observers = new ArrayList<Observer>();
 		this.book = book;
 	}
 
-	
 	public void register(Observer newObserver) {
 		
 		observers.add(newObserver);
@@ -26,7 +24,6 @@ public class PriceGrabber implements Subject{
 		int observerIndex = observers.indexOf(deleteObserver);
 		observers.remove(observerIndex);
 	}
-
 
 	public void notifyObserver() {
 		
@@ -39,5 +36,4 @@ public class PriceGrabber implements Subject{
 		this.book = book;
 		notifyObserver();
 	}
-
 }

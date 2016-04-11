@@ -35,7 +35,6 @@ public class BookDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<Book> getBookDetails(String title) {
-		System.out.println("test  "+title);
 		Criteria crit = session().createCriteria(Book.class);
 		crit.add(Restrictions.like("title", title,MatchMode.ANYWHERE));
 		crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
@@ -44,16 +43,14 @@ public class BookDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<Book> getBookByCategory(String category) {
-		System.out.println("test  "+category);
 		Criteria crit = session().createCriteria(Book.class);
-		crit.add(Restrictions.like("category", category,MatchMode.ANYWHERE));
+		crit.add(Restrictions.like("category", category,MatchMode.EXACT));
 		crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return crit.list();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Book> getBookByAuthor(String author) {
-		System.out.println("test  "+author);
 		Criteria crit = session().createCriteria(Book.class);
 		crit.add(Restrictions.like("author", author,MatchMode.ANYWHERE));
 		crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);

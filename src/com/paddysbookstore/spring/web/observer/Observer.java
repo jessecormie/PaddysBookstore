@@ -4,6 +4,5 @@ import com.paddysbookstore.spring.web.dao.Book;
 
 public interface Observer {
 
-	public void update(Book book);
-	
+	public void update(Book book);	
 }

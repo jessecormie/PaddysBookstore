@@ -28,7 +28,6 @@ public class BookListService implements BookIterator {
 	
 	@Override
 	public Iterator createIterator() {
-		System.out.println("Here!");
 		getBook();
 		return allBooks.iterator();
 	}

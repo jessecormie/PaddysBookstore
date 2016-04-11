@@ -142,9 +142,4 @@ public class BookController {
 		return "book";
 	}
 
-	public List<Book> iterateBooks() {
-		return null;
-
-	}
-
 }

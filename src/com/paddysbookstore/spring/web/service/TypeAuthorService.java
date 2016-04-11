@@ -21,10 +21,6 @@ public class TypeAuthorService implements Strategy{
 	
 	@Override
 	public List<Book> searchBar(String search) {
-		return bookDao.getBookByAuthor(search);
-		
-		
-		
+		return bookDao.getBookByAuthor(search);	
 	}
-
 }
