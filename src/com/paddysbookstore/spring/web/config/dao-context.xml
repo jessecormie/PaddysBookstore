@@ -41,6 +41,7 @@
 			<property name="packagesToScan">
 				<list>
 					<value>com.paddysbookstore.spring.web.dao</value>
+					<value>com.paddysbookstore.spring.web.iterator</value>
 					<value>com.paddysbookstore.spring.web.chainofresponsibility</value>
 					<value>com.paddysbookstore.spring.web.strategy</value>
 				</list>

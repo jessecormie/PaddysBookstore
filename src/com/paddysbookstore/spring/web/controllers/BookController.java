@@ -1,5 +1,6 @@
 package com.paddysbookstore.spring.web.controllers;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import com.paddysbookstore.spring.web.chainofresponsibility.AddStock;
 import com.paddysbookstore.spring.web.chainofresponsibility.Chain;
 import com.paddysbookstore.spring.web.chainofresponsibility.RemoveStock;
 import com.paddysbookstore.spring.web.dao.Book;
+import com.paddysbookstore.spring.web.iterator.BookIterator;
+import com.paddysbookstore.spring.web.service.BookListService;
 import com.paddysbookstore.spring.web.service.BookService;
 import com.paddysbookstore.spring.web.service.TypeAuthorService;
 import com.paddysbookstore.spring.web.service.TypeCategoryService;
@@ -22,8 +25,11 @@ import com.paddysbookstore.spring.web.strategy.Situation;
 
 @Controller
 public class BookController {
-
+	
+	BookIterator bookIterator;
+	
 	private BookService bookService;
+	private BookListService bookListService;
 	private TypeTitleService typeTitleService;
 	private TypeCategoryService typeCategoryService;
 	private TypeAuthorService typeAuthorService;
@@ -47,12 +53,22 @@ public class BookController {
 	public void setBookService(BookService bookService) {
 		this.bookService = bookService;
 	}
+	@Autowired
+	public void setBookListService(BookListService bookListService) {
+		this.bookListService = bookListService;
+	}
 
 	@RequestMapping("/book")
 	public String showBook(Model model) { // HttpSession session
-		List<Book> book = bookService.getBook();
-		model.addAttribute("book", book);
+//		List<Book> book = bookService.getBook();
+//		model.addAttribute("book", book);
 
+		Iterator book = bookIterator.createIterator();
+		while(book.hasNext()){
+			Book theBook = (Book) book.next();
+			model.addAttribute("book", theBook);
+		}
+		
 		return "book";
 	}
 
